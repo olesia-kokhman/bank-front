@@ -25,6 +25,7 @@ import Header from '../components/Header';
 import IntlProvider from '../components/IntlProvider';
 import MissedPage from '../components/MissedPage';
 import SearchParamsConfigurator from '../components/SearchParamsConfigurator';
+import BankPage from 'pageProviders/Bank';
 
 function App() {
   const dispatch = useDispatch();
@@ -78,6 +79,10 @@ function App() {
                     <Route
                       element={<SecretPage />}
                       path={`${pageURLs[pages.secretPage]}`}
+                    />
+                    <Route
+                        element={<BankPage />}
+                        path={`${pageURLs[pages.bankPage]}`}
                     />
                     <Route
                       element={(
