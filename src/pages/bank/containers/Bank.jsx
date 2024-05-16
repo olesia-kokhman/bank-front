@@ -1,51 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import Typography from 'components/Typography';
 import axios from 'axios';
+import './Bank.css'
 
 function Bank() {
-    const [bankData, setBankData] = useState(null);
-    console.log(bankData);
+    const [bankData, setBankData] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://localhost:8080/api/bank');
-                setBankData(response.data);
-            } catch (error) {
-                console.error('Error fetching bank data:', error);
-            }
-        };
-
-        fetchData();
-
-        return () => {};
+        const apiUrl = "http://localhost:8080/api/bank_accounts";
+        axios.get(apiUrl)
+            .then((response) => {
+                setBankData(response);
+                console.log(response);
+            })
+            .catch((error) => {
+                console.error("error ", error);
+            });
     }, []);
 
     return (
         <div>
-            <Typography variant="title">Bank Component</Typography>
             {bankData ? (
                 <div>
-                    <table>
+                    <table className="bank-table">
+
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
+                            <th>Account Number</th>
+                            <th>Balance</th>
+                            <th>Currency</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {bankData.map(bank => (
+                        {bankData.map(account => (
                             <tr>
-                                <td>{bank.id}</td>
-                                <td>{bank.name}</td>
+                                <td>{account.id}</td>
+                                <td>{account.accountNumber}</td>
+                                <td>{account.balance}</td>
+                                <td>{account.currency}</td>
                             </tr>
                         ))}
                         </tbody>
                     </table>
                 </div>
-            ) : (
-                <Typography>Loading...</Typography>
-            )}
+            ): "error getting the data"}
         </div>
     );
 }
