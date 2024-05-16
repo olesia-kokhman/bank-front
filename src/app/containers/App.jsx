@@ -25,7 +25,8 @@ import Header from '../components/Header';
 import IntlProvider from '../components/IntlProvider';
 import MissedPage from '../components/MissedPage';
 import SearchParamsConfigurator from '../components/SearchParamsConfigurator';
-import BankPage from 'pageProviders/Bank';
+import BankAccountPage from 'pageProviders/BankAccount';
+import AccountDetailsPage from 'pageProviders/AccountDetails';
 
 function App() {
   const dispatch = useDispatch();
@@ -81,8 +82,12 @@ function App() {
                       path={`${pageURLs[pages.secretPage]}`}
                     />
                     <Route
-                        element={<BankPage />}
-                        path={`${pageURLs[pages.bankPage]}`}
+                        element={<BankAccountPage />}
+                        path={`${pageURLs[pages.bankAccountPage]}`}
+                    />
+                    <Route
+                        element={<AccountDetailsPage />}
+                        path={`${pageURLs[pages.accountDetailsPage]}`}
                     />
                     <Route
                       element={(

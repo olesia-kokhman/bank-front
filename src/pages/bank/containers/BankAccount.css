@@ -1,13 +1,13 @@
-.bank-table {
+.bank-account-table {
     border-collapse: collapse;
     width: 100%;
 }
 
-.bank-table th, .bank-table td {
+.bank-account-table th, .bank-account-table td {
     border: 1px solid #dddddd;
     text-align: left;
 }
 
-.bank-table th {
+.bank-account-table th {
     background-color: #f2f2f2;
 }

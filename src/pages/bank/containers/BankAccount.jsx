@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './Bank.css'
+import './BankAccount.css'
 
-function Bank() {
+function BankAccount() {
     const [bankData, setBankData] = useState([]);
 
     useEffect(() => {
@@ -21,7 +21,7 @@ function Bank() {
         <div>
             {bankData ? (
                 <div>
-                    <table className="bank-table">
+                    <table className="bank-account-table">
 
                         <thead>
                         <tr>
@@ -48,5 +48,5 @@ function Bank() {
     );
 }
 
-export default Bank;
+export default BankAccount;
 

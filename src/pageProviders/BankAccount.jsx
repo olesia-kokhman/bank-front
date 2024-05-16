@@ -1,14 +1,14 @@
-import BankPage from 'pages/bank';
+import BankAccountPage from 'pages/bank';
 import React from 'react';
 
 import PageContainer from './components/PageContainer';
 
-const Bank = (props) => {
+const BankAccount = (props) => {
     return (
         <PageContainer>
-            <BankPage {...props} />
+            <BankAccountPage {...props} />
         </PageContainer>
     );
 };
 
-export default Bank;
+export default BankAccount;

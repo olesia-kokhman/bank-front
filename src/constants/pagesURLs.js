@@ -5,7 +5,8 @@ const result = {
   [pages.defaultPage]: `${config.UI_URL_PREFIX}/${pages.defaultPage}`,
   [pages.login]: `${config.UI_URL_PREFIX}/${pages.login}`,
   [pages.secretPage]: `${config.UI_URL_PREFIX}/${pages.secretPage}`,
-  [pages.bankPage]: `${config.UI_URL_PREFIX}/${pages.bankPage}`,
+  [pages.bankAccountPage]: `${config.UI_URL_PREFIX}/${pages.bankAccountPage}`,
+  [pages.accountDetailsPage]: `${config.UI_URL_PREFIX}/${pages.accountDetailsPage}`,
 };
 
 export default result;

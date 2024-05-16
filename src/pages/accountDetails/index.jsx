@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import IntlProvider from 'misc/providers/IntlProvider';
 import useLocationSearch from 'misc/hooks/useLocationSearch';
 
-import BankAccount from './containers/BankAccount';
 import getMessages from './intl';
+import AccountDetails from './containers/AccountDetails';
 
 function Index(props) {
     const {
@@ -12,7 +12,7 @@ function Index(props) {
     const messages = useMemo(() => getMessages(lang), [lang]);
     return (
         <IntlProvider messages={messages}>
-            <BankAccount {...props} />
+            <AccountDetails {...props} />
         </IntlProvider>
     );
 }
