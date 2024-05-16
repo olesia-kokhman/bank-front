@@ -23,6 +23,7 @@ import UserProvider from 'misc/providers/UserProvider';
 import actionsUser from '../actions/user';
 import Header from '../components/Header';
 import IntlProvider from '../components/IntlProvider';
+
 import MissedPage from '../components/MissedPage';
 import SearchParamsConfigurator from '../components/SearchParamsConfigurator';
 import BankAccountPage from 'pageProviders/BankAccount';
@@ -87,8 +88,9 @@ function App() {
                     />
                     <Route
                         element={<AccountDetailsPage />}
-                        path={`${pageURLs[pages.accountDetailsPage]}`}
+                        path={`${pageURLs[pages.bankAccountPage]}/:accountId`}
                     />
+
                     <Route
                       element={(
                         <LoginPage

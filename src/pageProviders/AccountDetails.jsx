@@ -3,7 +3,7 @@ import React from 'react';
 
 import PageContainer from './components/PageContainer';
 
-const BankAccount = (props) => {
+const AccountDetails = (props) => {
     return (
         <PageContainer>
             <AccountDetailsPage {...props} />
@@ -11,4 +11,4 @@ const BankAccount = (props) => {
     );
 };
 
-export default BankAccount;
+export default AccountDetails;

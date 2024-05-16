@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './BankAccount.css'
+import pageURLs from "../../../constants/pagesURLs";
+import * as pages from "../../../constants/pages";
+import {Link, useParams} from "react-router-dom";
 
 function BankAccount() {
     const [bankData, setBankData] = useState([]);
@@ -22,7 +25,6 @@ function BankAccount() {
             {bankData ? (
                 <div>
                     <table className="bank-account-table">
-
                         <thead>
                         <tr>
                             <th>ID</th>
@@ -34,7 +36,7 @@ function BankAccount() {
                         <tbody>
                         {bankData.map(account => (
                             <tr>
-                                <td>{account.id}</td>
+                                <td>{<Link to={`${pageURLs[pages.bankAccountPage]}/${account.id}`}>{account.id}</Link>}</td>
                                 <td>{account.accountNumber}</td>
                                 <td>{account.balance}</td>
                                 <td>{account.currency}</td>
