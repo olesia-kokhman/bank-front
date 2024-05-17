@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import axios from 'axios';
+import pageURLs from "../../../constants/pagesURLs";
+import * as pages from "../../../constants/pages";
 
 function AccountDetails() {
     const location = useLocation();
+    const navigate = useNavigate();
+
     console.log("location: ", location);
 
     const [id, setId] = useState(null);
@@ -90,6 +94,10 @@ function AccountDetails() {
 
     };
 
+    const navigateToBankAccountsList = () => {
+        navigate(`${pageURLs[pages.bankAccountPage]}`);
+    };
+
     return (
         <div>
             <div>
@@ -133,6 +141,9 @@ function AccountDetails() {
                 <div>
                     <input id="credit-limit" type="text" value={creditLimit} className="changeReadOnly" readOnly={!isEditing}/>
                 </div>
+            </div>
+            <div>
+                <button onClick={() => navigateToBankAccountsList() }>Back</button>
             </div>
         </div>
     );
