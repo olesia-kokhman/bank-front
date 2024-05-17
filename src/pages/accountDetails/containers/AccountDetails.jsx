@@ -16,7 +16,8 @@ function AccountDetails() {
 
     const [isEditing, setIsEditing] = useState(null);
 
-    console.log(isEditing);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const [showErrorMessage, setShowErrorMessage] = useState(false);
 
     useEffect(() => {
         if (location.state?.id) {
@@ -73,17 +74,19 @@ function AccountDetails() {
                 setBankId(response.bank.id);
                 setBankName(response.bank.name);
                 setCreditLimit(response.creditLimit);
+
+                changeIsEditing();
+
+                setShowSuccessMessage(true);
+                setTimeout(() => {
+                    setShowSuccessMessage(false);
+                }, 3000);
+
             })
             .catch((error) => {
                 console.log("error", error);
+                setShowErrorMessage(true);
             });
-
-
-        console.log("updated element:", updatedAccount);
-        changeIsEditing();
-    };
-
-    const refuseSavingAccountDetails = () => {
 
     };
 
@@ -92,11 +95,19 @@ function AccountDetails() {
             <div>
                 {isEditing ? (
                     <div>
+                        <p id="update-error-message" style={{ display: showErrorMessage ? 'block' : 'none' }}>
+                            failed to update the account details</p>
+
                         <button onClick={() => saveAccountDetails() }>Save</button>
-                        <button onClick={() => refuseSavingAccountDetails() }>Cancel</button>
+                        <button onClick={() => changeIsEditing() }>Cancel</button>
                     </div>
                 ): (
-                    <button onClick={() => changeIsEditing()}>Edit</button>
+                    <div>
+                        <p id="update-success-message" style={{ display: showSuccessMessage ? 'block' : 'none' }}>
+                            the account details were successfully updated</p>
+
+                        <button onClick={() => changeIsEditing()}>Edit</button>
+                    </div>
                 )}
             </div>
             <div>
