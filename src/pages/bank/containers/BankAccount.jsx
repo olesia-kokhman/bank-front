@@ -3,23 +3,34 @@ import axios from 'axios';
 import './BankAccount.css'
 import pageURLs from "../../../constants/pagesURLs";
 import * as pages from "../../../constants/pages";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 function BankAccount() {
     const [bankData, setBankData] = useState([]);
+
+    const [currentPage, setCurrentPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
+    const [pageSize, setPageSize] = useState(10);
+
     const navigate = useNavigate();
 
     useEffect(() => {
-        const apiUrl = "http://localhost:8080/api/bank_accounts";
-        axios.get(apiUrl)
-            .then((response) => {
-                setBankData(response);
-                console.log(response);
-            })
-            .catch((error) => {
-                console.error("error ", error);
-            });
-    }, []);
+        const fetchBankAccounts = (page, size) => {
+            const apiUrl = `http://localhost:8080/api/bank_accounts?page=${page}&size=${size}`;
+            axios.get(apiUrl)
+                .then((response) => {
+                    setBankData(response.content);
+                    setCurrentPage(response.number);
+                    setTotalPages(response.totalPages);
+
+                })
+                .catch((error) => {
+                    console.error("error ", error);
+                });
+        };
+
+        fetchBankAccounts(currentPage, pageSize);
+    },  [currentPage, pageSize]);
 
     const deleteAccount = (accountId) => {
         const apiUrl = `http://localhost:8080/api/bank_accounts/${accountId}`;
@@ -37,35 +48,53 @@ function BankAccount() {
         navigate(`${pageURLs[pages.bankAccountPage]}/${account.id}`, { state: account});
     };
 
+    const handlePageChange = (newPage) => {
+        if (newPage >= 0 && newPage < totalPages) {
+            setCurrentPage(newPage);
+        }
+    };
+
     return (
         <div>
-            {bankData ? (
-                <div>
-                    <table className="bank-account-table">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Account Number</th>
-                            <th>Balance</th>
-                            <th>Currency</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {bankData.map(account => (
-                            <tr onClick={() => navigateToAccountDetails(account)}>
-                                <td>{account.id}</td>
-                                <td>{account.accountNumber}</td>
-                                <td>{account.balance}</td>
-                                <td>{account.currency}</td>
-                                <td>
-                                    <button className="delete-button" onClick={() => deleteAccount(account.id)}>Delete Button</button>
-                                </td>
+            <div>
+                <button>Create Bank Account</button>
+            </div>
+            <div>
+                {bankData ? (
+                    <div>
+                        <table className="bank-account-table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Account Number</th>
+                                <th>Balance</th>
+                                <th>Currency</th>
                             </tr>
-                        ))}
-                        </tbody>
-                    </table>
-                </div>
-            ): "error getting the data"}
+                            </thead>
+                            <tbody>
+                            {bankData.map(account => (
+                                <tr onClick={() => navigateToAccountDetails(account)}>
+                                    <td>{account.id}</td>
+                                    <td>{account.accountNumber}</td>
+                                    <td>{account.balance}</td>
+                                    <td>{account.currency}</td>
+                                    <td>
+                                        <button className="delete-button" onClick={() => deleteAccount(account.id)}>Delete Button</button>
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                        <div className="pagination-controls">
+                            <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 0}>
+                                Previous</button>
+                            <span>{currentPage + 1} of {totalPages}</span>
+                            <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages - 1}>
+                                Next</button>
+                        </div>
+                    </div>
+                ): "error getting the data"}
+            </div>
         </div>
     );
 }
