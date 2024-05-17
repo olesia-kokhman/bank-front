@@ -3,7 +3,7 @@ import axios from 'axios';
 import './BankAccount.css'
 import pageURLs from "../../../constants/pagesURLs";
 import * as pages from "../../../constants/pages";
-import {Link, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function BankAccount() {
     const [bankData, setBankData] = useState([]);
@@ -19,6 +19,17 @@ function BankAccount() {
                 console.error("error ", error);
             });
     }, []);
+
+    const deleteAccount = (accountId) => {
+        const apiUrl = `http://localhost:8080/api/bank_accounts/${accountId}`;
+        axios.delete(apiUrl)
+            .then(() => {
+                console.log("successfully deleted");
+            })
+            .catch((error) => {
+                console.log("error: ", error);
+            })
+    };
 
     return (
         <div>
@@ -40,6 +51,9 @@ function BankAccount() {
                                 <td>{account.accountNumber}</td>
                                 <td>{account.balance}</td>
                                 <td>{account.currency}</td>
+                                <td>
+                                    <button className="delete-button" onClick={() => deleteAccount(account.id)}>Delete Button</button>
+                                </td>
                             </tr>
                         ))}
                         </tbody>

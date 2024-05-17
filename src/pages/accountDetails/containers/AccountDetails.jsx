@@ -8,9 +8,9 @@ function AccountDetails() {
     const { accountId } = useParams();
 
     return (
-        <Typography>
-            {formatMessage({ id: 'title' })}
-        </Typography>
+        <div>
+
+        </div>
     );
 }
 
