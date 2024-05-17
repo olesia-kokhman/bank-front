@@ -3,10 +3,11 @@ import axios from 'axios';
 import './BankAccount.css'
 import pageURLs from "../../../constants/pagesURLs";
 import * as pages from "../../../constants/pages";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 function BankAccount() {
     const [bankData, setBankData] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const apiUrl = "http://localhost:8080/api/bank_accounts";
@@ -31,6 +32,11 @@ function BankAccount() {
             })
     };
 
+    const navigateToAccountDetails = (account) => {
+        console.log("account in navigate: ", {account})
+        navigate(`${pageURLs[pages.bankAccountPage]}/${account.id}`, { state: account});
+    };
+
     return (
         <div>
             {bankData ? (
@@ -46,8 +52,8 @@ function BankAccount() {
                         </thead>
                         <tbody>
                         {bankData.map(account => (
-                            <tr>
-                                <td>{<Link to={`${pageURLs[pages.bankAccountPage]}/${account.id}`}>{account.id}</Link>}</td>
+                            <tr onClick={() => navigateToAccountDetails(account)}>
+                                <td>{account.id}</td>
                                 <td>{account.accountNumber}</td>
                                 <td>{account.balance}</td>
                                 <td>{account.currency}</td>
