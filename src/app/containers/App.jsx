@@ -23,8 +23,11 @@ import UserProvider from 'misc/providers/UserProvider';
 import actionsUser from '../actions/user';
 import Header from '../components/Header';
 import IntlProvider from '../components/IntlProvider';
+
 import MissedPage from '../components/MissedPage';
 import SearchParamsConfigurator from '../components/SearchParamsConfigurator';
+import BankAccountPage from 'pageProviders/BankAccount';
+import AccountDetailsPage from 'pageProviders/AccountDetails';
 
 function App() {
   const dispatch = useDispatch();
@@ -79,6 +82,15 @@ function App() {
                       element={<SecretPage />}
                       path={`${pageURLs[pages.secretPage]}`}
                     />
+                    <Route
+                        element={<BankAccountPage />}
+                        path={`${pageURLs[pages.bankAccountPage]}`}
+                    />
+                    <Route
+                        element={<AccountDetailsPage />}
+                        path={`${pageURLs[pages.bankAccountPage]}/:accountId`}
+                    />
+
                     <Route
                       element={(
                         <LoginPage
